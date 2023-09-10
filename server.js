@@ -14,11 +14,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const db = knex({
   client: 'pg',
   connection: {
-    host : 'localhost',     
-    user : 'postgres',
-    password : "klaw",
-    port: "5432",
-    database : 'smartbrain'
+    host : process.env.DATABASE_URL,
+    ssl: true,
 }
 });
 db.select('*').from('users');

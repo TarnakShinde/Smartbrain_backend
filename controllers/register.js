@@ -22,7 +22,7 @@ const handleRegister = (req,res,db,bcrypt) => {
                 joined: new Date()
             })
             .then(users => {
-            res.json(users[0]); //To grab the last item from the array database.users[database.users.length - 1]
+            res.json(users[0]); 
         })
 
         })
@@ -34,4 +34,6 @@ const handleRegister = (req,res,db,bcrypt) => {
     
 }
 
-export default handleRegister;
+module.exports = {
+    handleRegister : handleRegister
+}

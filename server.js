@@ -6,10 +6,10 @@ const bcrypt = require('bcrypt');
 
 const PORT = process.env.PORT
 
-import register from "./controllers/register";
-import signin from "./controllers/signin";
-import profile from "./controllers/profile";
-import image from "./controllers/image";
+const register = require ("./controllers/register");
+const signin = require ("./controllers/signin");
+const profile = require ("./controllers/profile");
+const image = require ("./controllers/image");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const db = knex({

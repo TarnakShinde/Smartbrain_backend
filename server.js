@@ -5,16 +5,17 @@ const knex = require('knex')
 const bcrypt = require('bcrypt');
 
 const PORT = process.env.PORT
-const register = require('./controllers/register');
-const signin = require('./controllers/signin');
-const profile = require('./controllers/profile');
-const image = require('./controllers/image');
+
+import register from "./controllers/register";
+import signin from "./controllers/signin";
+import profile from "./controllers/profile";
+import image from "./controllers/image";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const db = knex({
   client: 'pg',
   connection: {
-    connectionString: 'postgres://mydb_t5p8_user:PwnUtZzwJo1q0w3mQRuRV0m2e57Quz8Y@dpg-cjtiv37hdsdc73blrhsg-a.oregon-postgres.render.com/mydb_t5p8_user',
+    connectionString: DATABASE_URL,
     host : process.env.DATABASE_HOST,     
     user : process.env.DATABASE_USER,
     password : process.env.DATABASE_PASSWORD,

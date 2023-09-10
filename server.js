@@ -14,12 +14,13 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const db = knex({
   client: 'pg',
   connection: {
-    host : 'dpg-cjtiv37hdsdc73blrhsg-a',     
-    user : 'mydb_t5p8_user',
-    password : "PwnUtZzwJo1q0w3mQRuRV0m2e57Quz8Y",
+    connectionString: 'postgres://mydb_t5p8_user:PwnUtZzwJo1q0w3mQRuRV0m2e57Quz8Y@dpg-cjtiv37hdsdc73blrhsg-a.oregon-postgres.render.com/mydb_t5p8_user',
+    host : process.env.DATABASE_HOST,     
+    user : process.env.DATABASE_USER,
+    password : process.env.DATABASE_PASSWORD,
     port: "5432",
-    database : 'mydb_t5p8',
-    ssl: true,
+    database : process.env.DATABASE_DB,
+    ssl: { rejectUnauthorized : false },
 }
 });
 db.select('*').from('users');
@@ -40,4 +41,5 @@ app.put('/image', (req, res) => {image.handleImage(req, res, db)})
 app.listen(3000||PORT, () => {
     console.log(`Running on ${PORT}`);
 })
+
 

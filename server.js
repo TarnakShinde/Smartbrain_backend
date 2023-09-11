@@ -21,7 +21,7 @@ const db = knex({
     password : process.env.DATABASE_PASSWORD,
     port: "5432",
     database : process.env.DATABASE_DB,
-    ssl: { rejectUnauthorized : false },
+    ssl: true,
 }
 });
 db.select('*').from('users');

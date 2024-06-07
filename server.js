@@ -2,14 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: 'dpg-cni4e78l6cac7395sb10-a',
+    host: 'dpg-cphb3r8l6cac739t7kmg-a',
     port: 5432,
-    user: 'mydb_nrz2_user',
-    password: 'MqPgdUm4HUkvTCKvQSlv39UqifINZM4a',
-    database: 'mydb_nrz2',
+    user: 'mydatabase_7da0_user',
+    password: 'gd475qEUvFXsY1Yp24zrE2ARxBmJNCl3',
+    database: 'mydatabase_7da0',
   },
 });
 

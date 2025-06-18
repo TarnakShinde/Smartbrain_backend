@@ -13,11 +13,14 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.19.2",
     "fetch": "^1.1.0",
+    "firebase": "^11.8.1",
     "knex": "^3.1.0",
     "node-fetch": "^3.3.2",
     "pg": "^8.11.5"

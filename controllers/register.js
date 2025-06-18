@@ -1,37 +1,42 @@
-const handleRegister = (req,res,knex,bcrypt) => {
-	const {email, name, password } = req.body;
-	if(!email || !name || !password){
-		return res.status(400).json('Incorrect form Submission')
-	}
 
-	const hash = bcrypt.hashSync(password, 8);
-	knex.transaction(trx => {
-		trx.insert({
-			hash:hash,
-			email:email
-		})
-		.into('login')
-		.returning('email')
-		.then(loginEmail => {
-			console.log(loginEmail)
-			return trx('users')
-				.returning('*')
-				.insert({
-					email: loginEmail[0].email,
-					name: name,
-					joined: new Date()
-				})
-				.then(user => {
-					res.json(user[0]);   //database.users[database.users.length-1]
-			})
-		})
-		.then(trx.commit)
-		.catch(trx.rollback)
-	})
-	.catch(err => res.status('404').json('Unable to Register'));
-}
+const handleRegister = async (req, res, supabase, bcrypt) => {
+  const { email, name, password } = req.body;
 
+  if (!email || !name || !password) {
+    return res.status(400).json('Incorrect form submission');
+  }
 
+  const hash = bcrypt.hashSync(password, 8);
+
+  try {
+    // Insert into login table
+    const { data: loginData, error: loginError } = await supabase
+      .from('login')
+      .insert([{ email, hash }])
+      .select('email')
+      .single();
+
+    if (loginError) throw loginError;
+
+    // Insert into users table
+    const { data: userData, error: userError } = await supabase
+      .from('users')
+      .insert([{
+        email: loginData.email,
+        name: name,
+        joined: new Date().toISOString()
+      }])
+      .select('*')
+      .single();
+
+    if (userError) throw userError;
+
+    res.json(userData);
+  } catch (error) {
+    console.error('Registration Error:', error);
+    res.status(400).json('Unable to register');
+  }
+};
 module.exports = {
 	handleRegister: handleRegister
 };
